@@ -2,6 +2,12 @@
 
 This image runs mongodump to backup data using cronjob to an s3 bucket
 
+## Vendigo Fork
+
+Removes port directives, as we can use replicaSets or host:port.
+
+Also removes the ability to initiate a restore on startup, as this won't work well with replicasets.
+
 ## Usage:
 
 ```
@@ -10,7 +16,6 @@ docker run -d \
   --env AWS_SECRET_ACCESS_KEY=awssecretaccesskey \
   --env BUCKET=s3bucket
   --env MONGODB_HOST=mongodb.host \
-  --env MONGODB_PORT=27017 \
   --env MONGODB_USER=admin \
   --env MONGODB_PASS=password \
   halvves/mongodb-backup-s3
@@ -70,9 +75,7 @@ mongodbbackup:
 
 `BACKUP_FOLDER`: - name of folder or path to put backups (eg `myapp/db_backups/`). defaults to root of bucket.
 
-`MONGODB_HOST` - the host/ip of your mongodb database
-
-`MONGODB_PORT` - the port number of your mongodb database
+`MONGODB_HOST` - the host/ip/replicaSet+hosts of your mongodb database
 
 `MONGODB_USER` - the username of your mongodb database. If MONGODB_USER is empty while MONGODB_PASS is not, the image will use admin as the default username
 
@@ -89,8 +92,6 @@ mongodbbackup:
 `CRON_TZ` - cron timezone. default: `US/Eastern`
 
 `INIT_BACKUP` - if set, create a backup when the container launched
-
-`INIT_RESTORE` - if set, restore from latest when container is launched
 
 `DISABLE_CRON` - if set, it will skip setting up automated backups. good for when you want to use this container to seed a dev environment.
 
