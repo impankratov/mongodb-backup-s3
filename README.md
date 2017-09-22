@@ -15,6 +15,7 @@ docker run -d \
   --env AWS_ACCESS_KEY_ID=awsaccesskeyid \
   --env AWS_SECRET_ACCESS_KEY=awssecretaccesskey \
   --env BUCKET=s3bucket
+  --env BUCKET_REGION=eu-west-1
   --env MONGODB_HOST=mongodb.host \
   --env MONGODB_USER=admin \
   --env MONGODB_PASS=password \
@@ -28,6 +29,7 @@ docker run -d \
   --env AWS_ACCESS_KEY_ID=myaccesskeyid \
   --env AWS_SECRET_ACCESS_KEY=mysecretaccesskey \
   --env BUCKET=mybucketname \
+  --env BUCKET_REGION=eu-west-1
   --env BACKUP_FOLDER=a/sub/folder/path/ \
   --env INIT_BACKUP=true \
   --link my_mongo_db:mongodb \
@@ -46,6 +48,7 @@ mongodbbackup:
     - AWS_ACCESS_KEY_ID=myaccesskeyid
     - AWS_SECRET_ACCESS_KEY=mysecretaccesskey
     - BUCKET=my-s3-bucket
+    - BUCKET_REGION=eu-west-1
     - BACKUP_FOLDER=prod/db/
   restart: always
 ```
@@ -60,6 +63,7 @@ mongodbbackup:
     - AWS_ACCESS_KEY_ID=myaccesskeyid
     - AWS_SECRET_ACCESS_KEY=mysecretaccesskey
     - BUCKET=my-s3-bucket
+    - BUCKET_REGION=eu-west-1
     - BACKUP_FOLDER=prod/db/
     - INIT_RESTORE=true
     - DISABLE_CRON=true
@@ -72,6 +76,8 @@ mongodbbackup:
 `AWS_SECRET_ACCESS_KEY`: - your aws secret access key (for your s3 bucket)
 
 `BUCKET`: - your s3 bucket
+
+`BUCKET_REGION`: - region of your s3 bucket
 
 `BACKUP_FOLDER`: - name of folder or path to put backups (eg `myapp/db_backups/`). defaults to root of bucket.
 

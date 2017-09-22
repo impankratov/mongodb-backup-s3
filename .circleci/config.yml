@@ -10,8 +10,11 @@ jobs:
       - checkout
       - setup_docker_engine
 
+      -run:
+        name: build
+        command: docker build --rm=false -t vendigo/mongo-backup .
+
       - deploy:
           command: |
             docker login -u $DOCKER_USERNAME -p $DOCKER_PASS
-            docker build --rm=false -t vendigo/mongo-backup .
             docker push vendigo/mongo-backup
