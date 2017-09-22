@@ -41,7 +41,7 @@ Add to a docker-compose.yml to enhance your robotic army:
 For automated backups
 ```
 mongodbbackup:
-  image: 'halvves/mongodb-backup-s3:latest'
+  image: 'vendigo/mongo-backup:latest'
   links:
     - mongodb
   environment:
@@ -56,7 +56,7 @@ mongodbbackup:
 Or use `INIT_RESTORE` with `DISABLE_CRON` for seeding/restoring/starting a db (great for a fresh instance or a dev machine)
 ```
 mongodbbackup:
-  image: 'halvves/mongodb-backup-s3:latest'
+  image: 'vendigo/mongo-backup:latest'
   links:
     - mongodb
   environment:

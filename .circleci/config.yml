@@ -10,9 +10,9 @@ jobs:
       - checkout
       - setup_docker_engine
 
-      -run:
-        name: build
-        command: docker build --rm=false -t vendigo/mongo-backup .
+      - run:
+          name: build
+          command: docker build --rm=false -t vendigo/mongo-backup .
 
       - deploy:
           command: |
