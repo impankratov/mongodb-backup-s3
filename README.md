@@ -4,7 +4,15 @@ This image runs mongodump to backup data using cronjob to an s3 bucket
 
 ## Vendigo Fork
 
-Removes port directives, as we can use replicaSets or host:port.
+This fork is based on [halvves/mongodb-backup-s3](http://github.com/halvves/mongodb-backup-s3)
+
+It has the following changes:
+
+  * Runs on alpine linux so that the image is TINY
+  * Removes port directives, as we can use replicaSets or host:port.
+  * Specify region for buckets with '.' in the name, as is required by AWS
+  * Upgrades aws-cli from an ancient version in 'apt' to the latest python pip one.
+  * Removes restore on restart, because that is a crazy idea.
 
 Also removes the ability to initiate a restore on startup, as this won't work well with replicasets.
 
@@ -19,10 +27,10 @@ docker run -d \
   --env MONGODB_HOST=mongodb.host \
   --env MONGODB_USER=admin \
   --env MONGODB_PASS=password \
-  halvves/mongodb-backup-s3
+  vendigo/mongo-backup:latest
 ```
 
-If you link `halvves/mongodb-backup-s3` to a mongodb container with an alias named mongodb, this image will try to auto load the `host`, `port`, `user`, `pass` if possible. Like this:
+If you link `vendigo/mongo-backup:latest` to a mongodb container with an alias named mongodb, this image will try to auto load the `host`, `port`, `user`, `pass` if possible. Like this:
 
 ```
 docker run -d \
@@ -33,7 +41,7 @@ docker run -d \
   --env BACKUP_FOLDER=a/sub/folder/path/ \
   --env INIT_BACKUP=true \
   --link my_mongo_db:mongodb \
-  halvves/mongodb-backup-s3
+  vendigo/mongo-backup:latest
 ```
 
 Add to a docker-compose.yml to enhance your robotic army:
